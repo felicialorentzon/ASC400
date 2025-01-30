@@ -40,8 +40,17 @@ def task1():
 def task2():
     print(f"{task2_name} answer")
 
-def task3():
-    print(f"{task3_name} answer")
+def eulers_totient_function(n):
+    # Eulers totients function returns the counts from 0 to n that are 
+    # relatively prime to n.
+    # We do this by looping through all the numbers from 0 to n and
+    # check if the gcd of this number is = 1. If it is, we know that this
+    # is relatively prime to n and add a 1 to our count. 
+    count = 0
+    for i in range(1, n):
+        if GCD(i, n) == True:
+            count += 1
+    print(f"Number of coprimes to n: {count}")
 
 def task4():
     print(f"{task4_name} answer")
