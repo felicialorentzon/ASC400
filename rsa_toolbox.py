@@ -2,8 +2,8 @@ import math
 #set names here
 task1_name = "Prime Number Check"
 task2_name = "Extended Euclidean Algorithm"
-task3_name = "Task 3 name"
-task4_name = "Task 4 name"
+task3_name = "Calculate phi(n)"
+task4_name = "Get secret key"
 
 def main():
     print_menu()
@@ -14,9 +14,15 @@ def main():
         elif user_input == "2":
             extendedEuclideanAlgorithm()
         elif user_input == "3":
-            task3()
+            n = input()
+            print("N = p * q\nEnter N: " + n)
+            eulers_totient_function(n)
         elif user_input == "4":
-            task4()
+            e = input()
+            print("Enter the e: " + e)
+            n = input()
+            print("N = p * q\nEnter N: " + n)
+            task4(e, n)
 
         #back to menu
         input("\npress Enter to continue")
@@ -79,8 +85,18 @@ def eulers_totient_function(n):
             count += 1
     print(f"Number of coprimes to n: {count}")
 
-def task4():
-    print(f"{task4_name} answer")
+def task4(e, n):
+    # this function calculates the secret key my getting the value e and the modulus.
+    # the function then verifies this by comparing the encryption a message 2350 and decrpting it
+    phi_n = eulers_totient_function(n)
+    isvalid_e = realtivelyPrime(e, phi_n)
+    if(isvalid_e):
+        print(f"{e} is valid. Will continue to calculate the secret key...")
+        e_inverse = 1 / e
+        d = e_inverse % phi_n
+    else:
+        print(f"{e} is not valid")
+
 
 def print_menu():
     menu = ("________________________\n"+
