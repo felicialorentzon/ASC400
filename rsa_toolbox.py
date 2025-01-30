@@ -1,5 +1,6 @@
+import math
 #set names here
-task1_name = "Task 1 name"
+task1_name = "Prime Number Check"
 task2_name = "Task 2 name"
 task3_name = "Task 3 name"
 task4_name = "Task 4 name"
@@ -24,8 +25,17 @@ def main():
         user_input = input("Pick an option: ")
     print("Exiting")
 
+def is_prime(n):
+    if n < 2:
+        return False
+    for i in range(2, int(math.sqrt(n)) + 1):
+        if n % i == 0:
+            return False
+    return True
+
 def task1():
-    print(f"{task1_name} answer")
+    n = int(input("Enter a number to check if it's prime: "))
+    print(f"Prime: {is_prime(n)}")
 
 def task2():
     print(f"{task2_name} answer")
