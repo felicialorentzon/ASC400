@@ -18,6 +18,7 @@ def main():
             task4()
 
         #back to menu
+        input("\npress Enter to continue")
         print("\n\n")
         print_menu()
         user_input = input("Pick an option: ")
