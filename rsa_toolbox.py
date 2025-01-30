@@ -1,7 +1,7 @@
 import math
 #set names here
 task1_name = "Prime Number Check"
-task2_name = "Task 2 name"
+task2_name = "Extended Euclidean Algorithm"
 task3_name = "Task 3 name"
 task4_name = "Task 4 name"
 
@@ -12,7 +12,7 @@ def main():
         if user_input == "1":
             task1()
         elif user_input == "2":
-            task2()
+            extendedEuclideanAlgorithm()
         elif user_input == "3":
             task3()
         elif user_input == "4":
@@ -37,8 +37,35 @@ def task1():
     n = int(input("Enter a number to check if it's prime: "))
     print(f"Prime: {is_prime(n)}")
 
-def task2():
-    print(f"{task2_name} answer")
+def extendedEuclideanAlgorithm(): #TODO: check if != 0 and numbers
+    a = int(input("write the first number: "))
+    b = int(input("write the second number: "))
+    
+    if realtivelyPrime(a,b):
+        #inverse
+        print("relatively prime")
+    else:
+        print("The numbers are not relatively prime.\nUnable to calculate inverse.")
+
+
+def realtivelyPrime(a,b):
+    if GCD(a,b) == 1:
+        return True
+    return False
+
+def GCD(a,b):
+    while b > 0:
+        if a < b: # ensure a is bigger than b
+            temp = a
+            a = b
+            b = temp
+
+        #prepare for the next round of calculation
+        rest = a % b
+        a = b
+        b = rest
+    return a
+        
 
 def eulers_totient_function(n):
     # Eulers totients function returns the counts from 0 to n that are 
