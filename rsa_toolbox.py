@@ -115,3 +115,37 @@ def print_menu():
 
 if __name__ == "__main__":
     main()
+
+
+#Question 1: What makes an asymmetric scheme like RSA slower than its symmetric alternatives such as AES? Explain. Also,
+# what information in the RSA key generator, encryption and decryption algorithms an attacker may have access to?
+
+#RSA is slower than symmetric encryption alternatives like AES due to the computational complexity involved in its 
+#operations. RSA encryption and decryption rely on modular exponentiation with large numbers, which requires multiple
+#expensive multiplications, making it significantly slower than AES, which operates on fixed-size blocks using 
+#efficient bitwise operations and substitution-permutation networks. Additionally, RSA keys need to be much larger than
+#AES keys to provide equivalent security, further increasing the computational cost. In practice, RSA is mainly used for
+#key exchange and authentication, while AES is used for encrypting large amounts of data efficiently. An attacker can 
+#access the public key (e, N), which is openly shared, and may intercept ciphertexts, but decrypting them is infeasible
+#without the private key due to the difficulty of factoring N into its prime components.
+
+#Question 2: How many numbers from 1 to n should be tested before deciding if n is prime or not? Why?
+
+#To determine if a number n is prime, we only need to test divisibility up to square root of n, instead of checking
+#all numbers from 1 to n. The reason is if n is not prime, it can be factored as n = a x b, where at least one of the
+#factors must be less than or equal with the squareroot of n. This means that if n had a factor larger than the squareroot 
+#of n, then the other factor must be smaller. So if we can't find any divisors up to the squareroot of n, then n is prime.
+
+#Question 3: Alice wants to send m=15 to Bob. She gets Bob’s public key pk=(19,77) by visiting a public repository. If
+# she decides to use RSA for encryption, what would the resulting cipher text be? (Show your calculation)
+
+#m = 15, e = 19, N = 77
+#Φ(N) = Φ(77) = Φ(11 x 7) = Φ(11-1 x 7-1) = 10 x 6 = 60
+#GCD(e, Φ(N)) = 1 → GCD(19, 60) = 1
+#c = m^e mod N → c = 15^19 mod 77
+#15^2 = 225, 225 mod 77 = 225 - (77 x 2) = 225 - 154 = 71
+#15^4 = (15^2)^2 = 71^2 = 5041, 5041 mod 77 = 5041 - (77 x 65) = 5041 - 5005 = 36
+#15^8 = (15^4)^2 = 36^2 = 1296, 1296 mod 77 = 1296 - (77 x 16) = 1296 - 1232 = 64
+#15^16 = (15^8)^2 = 64^2 = 4096, 4096 mod 77 = 4096 - (77 x 53) = 4096 - 4081 = 15
+#15^19 = 15^16 x 15^2 x 15 mod 77 = (15 x 71 x 15) mod 77 = 15975 mod 77 = 15975 - (77 x 207) = 15975 - 15939 = 36
+#→ c = 36 
