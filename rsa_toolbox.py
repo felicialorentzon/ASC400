@@ -5,34 +5,6 @@ task2_name = "Extended Euclidean Algorithm"
 task3_name = "Calculate phi(N)"
 task4_name = "Get secret key"
 
-def main():
-    print_menu()
-    user_input = input("Pick a number: ")
-    while user_input != "5":
-        if user_input == "1":
-            n = int(input("Enter a number to check if it's prime: "))
-            print(f"Prime: {is_prime(n)}")
-        elif user_input == "2":
-            #TODO: check if != 0 and numbers
-            a = int(input("Write the first number: "))
-            b = int(input("Write the second number: "))
-            extended_euclidean_algorithm(a, b)
-        elif user_input == "3":
-            n = input()
-            print("N = p * q\nEnter N: " + n)
-            eulers_totient_function(n)
-        elif user_input == "4":
-            e = int(input("Enter the e: "))
-            n = int(input("N = p * q\nEnter N: "))
-            calculate_secret_key(e, n)
-
-        #back to menu
-        input("\nPress Enter to continue")
-        print("\n\n")
-        print_menu()
-        user_input = input("Pick an option: ")
-    print("Exiting")
-
 # Helper function
 def gcd(a,b):
     while b > 0:
@@ -46,7 +18,7 @@ def gcd(a,b):
     return a
 
 # Helper function
-def is_realtively_prime(a,b):
+def is_relatively_prime(a, b):
     if gcd(a,b) == 1:
         return True
     return False
@@ -61,9 +33,10 @@ def is_prime(n):
     return True
 
 def extended_euclidean_algorithm(a, b): 
-    if is_realtively_prime(a, b):
+    if is_relatively_prime(a, b):
         #inverse
-        print("Relatively prime")
+        print(f'The numbers are relatively prime and the modular \
+              inverse is {calculate_modular_inverse(a, b)}')
     else:
         print("The numbers are not relatively prime.\nUnable to \
               calculate inverse.")
@@ -79,21 +52,20 @@ def eulers_totient_function(n):
     for i in range(1, n):
         if gcd(i, n) == True:
             count += 1
-    print(f"Number of coprimes to N: {count}")
+    return count
 
-def calculate_secret_key(e, n):
-    # This function calculates the secret key by getting the value 
-    # e and the modulus. The function then verifies this by 
-    # comparing the encryption a message 2350 and decrpting it
+def calculate_modular_inverse(e, n):
+    # This function calculates the modular inverse by getting 
+    # the value e and the modulus.
     phi_n = eulers_totient_function(n)
-    isvalid_e = is_realtively_prime(e, phi_n)
+    isvalid_e = is_relatively_prime(e, phi_n)
     if(isvalid_e):
+        #TODO: correct the logic
         e_inverse = 1 / e
-        d = e_inverse % phi_n
-        print(f"The secret key is: ({d},{n})")
+        d = 0
+        print(f"The modular inverse is: {d}")
     else:
         print(f"e: {e}, is not valid")
-
 
 def print_menu():
     menu = ("________________________\n"+
@@ -108,8 +80,34 @@ def print_menu():
             "________________________\n")
     
     print(menu)
-    
 
+def main():
+    print_menu()
+    user_input = input("Pick a number: ")
+    while user_input != "5":
+        if user_input == "1":
+            n = int(input("Enter a number to check if it's prime: "))
+            print(f"Prime: {is_prime(n)}")
+        elif user_input == "2":
+            #TODO: check if != 0 and numbers
+            a = int(input("Write the first number: "))
+            b = int(input("Write the second number: "))
+            extended_euclidean_algorithm(a, b)
+        elif user_input == "3":
+            n = int(input("N = p * q\nEnter N: "))
+            print(f"Number of coprimes to N: {eulers_totient_function(n)}")
+        elif user_input == "4":
+            e = int(input("Enter the e: "))
+            n = int(input("N = p * q\nEnter N: "))
+            calculate_secret_key(e, n)
+
+        #back to menu
+        input("\nPress Enter to continue")
+        print("\n\n")
+        print_menu()
+        user_input = input("Pick an option: ")
+    print("Exiting")
+    
 if __name__ == "__main__":
     main()
 
