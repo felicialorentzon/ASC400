@@ -52,6 +52,7 @@ def is_realtively_prime(a,b):
     return False
 
 def is_prime(n):
+    #TODO: comment logic
     if n < 2:
         return False
     for i in range(2, int(math.sqrt(n)) + 1):
