@@ -2,7 +2,7 @@ import math
 #set names here
 task1_name = "Prime Number Check"
 task2_name = "Extended Euclidean Algorithm"
-task3_name = "Calculate phi(n)"
+task3_name = "Calculate phi(N)"
 task4_name = "Get secret key"
 
 def main():
@@ -25,7 +25,7 @@ def main():
             task4(e, n)
 
         #back to menu
-        input("\npress Enter to continue")
+        input("\nPress Enter to continue")
         print("\n\n")
         print_menu()
         user_input = input("Pick an option: ")
@@ -67,7 +67,7 @@ def extendedEuclideanAlgorithm(): #TODO: check if != 0 and numbers
     
     if realtivelyPrime(a,b):
         #inverse
-        print("relatively prime")
+        print("Relatively prime")
     else:
         print("The numbers are not relatively prime.\nUnable to \
               calculate inverse.")
@@ -81,16 +81,16 @@ def eulers_totient_function(n):
     # and add a 1 to our count. 
     count = 0
     for i in range(1, n):
-        if GCD(i, n) == True:
+        if gcd(i, n) == True:
             count += 1
-    print(f"Number of coprimes to n: {count}")
+    print(f"Number of coprimes to N: {count}")
 
 def calculate_secret_key(e, n):
     # This function calculates the secret key by getting the value 
     # e and the modulus. The function then verifies this by 
     # comparing the encryption a message 2350 and decrpting it
     phi_n = eulers_totient_function(n)
-    isvalid_e = realtivelyPrime(e, phi_n)
+    isvalid_e = is_realtively_prime(e, phi_n)
     if(isvalid_e):
         print(f"{e} is valid. Will continue to calculate the secret key...")
         e_inverse = 1 / e
