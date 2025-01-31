@@ -10,19 +10,21 @@ def main():
     user_input = input("Pick a number: ")
     while user_input != "5":
         if user_input == "1":
-            task1()
+            n = int(input("Enter a number to check if it's prime: "))
+            print(f"Prime: {is_prime(n)}")
         elif user_input == "2":
-            extendedEuclideanAlgorithm()
+            #TODO: check if != 0 and numbers
+            a = int(input("Write the first number: "))
+            b = int(input("Write the second number: "))
+            extended_euclidean_algorithm(a, b)
         elif user_input == "3":
             n = input()
             print("N = p * q\nEnter N: " + n)
             eulers_totient_function(n)
         elif user_input == "4":
-            e = input()
-            print("Enter the e: " + e)
-            n = input()
-            print("N = p * q\nEnter N: " + n)
-            task4(e, n)
+            e = int(input("Enter the e: "))
+            n = int(input("N = p * q\nEnter N: "))
+            calculate_secret_key(e, n)
 
         #back to menu
         input("\nPress Enter to continue")
@@ -57,15 +59,8 @@ def is_prime(n):
             return False
     return True
 
-def task1():
-    n = int(input("Enter a number to check if it's prime: "))
-    print(f"Prime: {is_prime(n)}")
-
-def extendedEuclideanAlgorithm(): #TODO: check if != 0 and numbers
-    a = int(input("write the first number: "))
-    b = int(input("write the second number: "))
-    
-    if realtivelyPrime(a,b):
+def extended_euclidean_algorithm(a, b): 
+    if is_realtively_prime(a, b):
         #inverse
         print("Relatively prime")
     else:
@@ -92,11 +87,11 @@ def calculate_secret_key(e, n):
     phi_n = eulers_totient_function(n)
     isvalid_e = is_realtively_prime(e, phi_n)
     if(isvalid_e):
-        print(f"{e} is valid. Will continue to calculate the secret key...")
         e_inverse = 1 / e
         d = e_inverse % phi_n
+        print(f"The secret key is: ({d},{n})")
     else:
-        print(f"{e} is not valid")
+        print(f"e: {e}, is not valid")
 
 
 def print_menu():
