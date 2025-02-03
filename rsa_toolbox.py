@@ -81,8 +81,6 @@ def calculate_modular_inverse(e, n):
     return d
 
 
-
-
 def print_menu():
     menu = ("________________________\n"+
             "          Menu          \n"+
