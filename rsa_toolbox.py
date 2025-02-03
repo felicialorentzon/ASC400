@@ -77,7 +77,7 @@ def calculate_modular_inverse(e, n):
     encrypted_message = (message**e)%n
     decrypted_message = (encrypted_message**d)%n
     if(decrypted_message==message):
-        print("({d},{n}) is the private key of ({e},{n}) public key")
+        print(f"The modular inverse is: {d}")
 
 
 def print_menu():
