@@ -71,6 +71,8 @@ def calculate_modular_inverse(e, n):
         d = 0
 
         #inverse modulo start
+        #find a combination of x*n - y*e that returns 1
+        #where x = n_counter and y = e_counter
         e_counter = 1
         n_counter = 1
         answer = n_counter * n - e_counter * e
@@ -79,7 +81,7 @@ def calculate_modular_inverse(e, n):
                 while (answer > 0):
                     e_counter += 1
                     answer = n_counter * n - e_counter * e
-                    if answer == 1:
+                    if answer == 1: # calculate d
                         d = n - e_counter
                         break
                 n_counter += 1
