@@ -73,6 +73,13 @@ def calculate_modular_inverse(e, n):
     else:
         print(f"e: {e}, is not valid")
 
+    message = 2350
+    encrypted_message = math.exp(message)%n
+    decrypted_message = math.exp(encrypted_message)%n
+    if(decrypted_message==encrypted_message):
+        print("({d},{n}) is the private key of ({e},{n}) public key")
+
+
 def print_menu():
     menu = ("________________________\n"+
             "          Menu          \n"+
