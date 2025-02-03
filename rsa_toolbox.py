@@ -5,7 +5,7 @@ task2_name = "Extended Euclidean Algorithm"
 task3_name = "Calculate phi(N)"
 task4_name = "Get secret key"
 
-# Helper function
+# Helper function that gives greatest common divisor
 def gcd(a,b):
     while b > 0:
         if a < b: # ensure a is bigger than b
@@ -17,31 +17,36 @@ def gcd(a,b):
         b = rest
     return a
 
-# Helper function
+# Helper function that checks if numbers is relatively prime
 def is_relatively_prime(a, b):
     if gcd(a,b) == 1:
         return True
     return False
 
+# Task 1
+# Function that checks if given number is prime
 def is_prime(n):
-    #TODO: comment logic
+    # Numbers less than two are not prime
     if n < 2:
         return False
+    # Divosors from 2 to sqrt(n) + 1 are checked
     for i in range(2, int(math.sqrt(n)) + 1):
+        # if the division is 0, then the number is not prime
         if n % i == 0:
             return False
     return True
 
-def extended_euclidean_algorithm(a, b): 
+# Task 2
+def extended_euclidean_algorithm(a, b):
     if is_relatively_prime(a, b):
-        #inverse
+        # calculate modular inverse
         print(f'The numbers are relatively prime and the modular \
               inverse is {calculate_modular_inverse(a, b)}')
     else:
         print("The numbers are not relatively prime.\nUnable to \
               calculate inverse.")
         
-
+# Task 3
 def eulers_totient_function(n):
     # Eulers totients function returns the counts from 0 to n that 
     # are relatively prime to n. We do this by looping through all 
@@ -54,6 +59,7 @@ def eulers_totient_function(n):
             count += 1
     return count
 
+# Task 4
 def calculate_modular_inverse(e, n):
     # This function calculates the modular inverse by getting 
     # the value e and the modulus.
