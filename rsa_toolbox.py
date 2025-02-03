@@ -1,9 +1,9 @@
 import math
-#set names here
+# set names here
 task1_name = "Prime Number Check"
 task2_name = "Extended Euclidean Algorithm"
 task3_name = "Calculate phi(N)"
-task4_name = "Get secret key"
+task4_name = "Calculate modular inverse"
 
 # Helper function that gives greatest common divisor
 def gcd(a,b):
@@ -11,7 +11,7 @@ def gcd(a,b):
         if a < b: # ensure a is bigger than b
             a, b = b, a
 
-        #prepare for the next round of calculation
+        # prepare for the next round of calculation
         rest = a % b
         a = b
         b = rest
@@ -39,10 +39,13 @@ def is_prime(n):
 # Task 2
 def extended_euclidean_algorithm(a, b):
     if is_relatively_prime(a, b):
-        print(f"The numbers {a} and {b} are relatively prime.inverse is {calculate_modular_inverse(a, b)}")
+        # calculate modular inverse
+        print(f"The numbers {a} and {b} are relatively prime. \nInverse is: {calculate_modular_inverse(a, b)}")
     else:
-        print("The numbers are not relatively prime.\nUnable to calculate inverse.")
-
+        # if the numbers aren't relatively prime, the modular inverse
+        # can't be calculated
+        print("The numbers are not relatively prime.\nUnable to \
+              calculate inverse.")
         
 # Task 3
 def eulers_totient_function(n):
@@ -61,22 +64,29 @@ def eulers_totient_function(n):
 def calculate_modular_inverse(e, n):
     phi_n = eulers_totient_function(n)
     if not is_relatively_prime(e, phi_n):
+        # if the numbers aren't relatively prime, the modular inverse
+        # can't be calculated
         print(f"e: {e} is not valid (no modular inverse exists).")
         return None
 
     a, b = e, phi_n
     x, x1 = 1, 0
 
+    # Loop until b is 0 (base case)
     while b != 0:
         quotient = a // b
         a, b = b, a - quotient * b
         x, x1 = x1, x - quotient * x1
 
+    # After base case is reached, a=1 indicates that a modular 
+    # inverse exists
     if a != 1:  
         return None
 
+    # x=e**(-1)
+    # d = e**(-1) mod phi(N)
     d = x % phi_n  
-    print(f"The modular inverse (private key) is: {d}")
+    print(f"The modular inverse is: {d}")
 
     return d
 
@@ -103,9 +113,8 @@ def main():
             n = int(input("Enter a number to check if it's prime: "))
             print(f"Prime: {is_prime(n)}")
         elif user_input == "2":
-            #TODO: check if != 0 and numbers
-            a = int(input("Write the first number: "))
-            b = int(input("Write the second number: "))
+            a = int(input("Enter a number as e: "))
+            b = int(input("Enter a number as N: "))
             extended_euclidean_algorithm(a, b)
         elif user_input == "3":
             n = int(input("N = p * q\nEnter N: "))
