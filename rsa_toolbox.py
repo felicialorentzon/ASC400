@@ -69,6 +69,26 @@ def calculate_modular_inverse(e, n):
         #TODO: correct the logic
         e_inverse = 1 / e
         d = 0
+
+        #inverse modulo start
+        e_counter = 1
+        n_counter = 1
+        answer = n_counter * n - e_counter * e
+        if answer != 1:
+            while d == 0:
+                while (answer > 0):
+                    e_counter += 1
+                    answer = n_counter * n - e_counter * e
+                    if answer == 1:
+                        d = n - e_counter
+                        break
+                n_counter += 1
+                e_counter = 1
+                answer = n_counter * n - e_counter * e
+        else:
+            d = n - e_counter
+        #inverse modulo end
+
         print(f"The modular inverse is: {d}")
     else:
         print(f"e: {e}, is not valid")
