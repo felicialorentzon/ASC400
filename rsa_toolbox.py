@@ -39,12 +39,10 @@ def is_prime(n):
 # Task 2
 def extended_euclidean_algorithm(a, b):
     if is_relatively_prime(a, b):
-        # calculate modular inverse
-        print(f'The numbers are relatively prime and the modular \
-              inverse is {calculate_modular_inverse(a, b)}')
+        print(f"The numbers {a} and {b} are relatively prime.inverse is {calculate_modular_inverse(a, b)}")
     else:
-        print("The numbers are not relatively prime.\nUnable to \
-              calculate inverse.")
+        print("The numbers are not relatively prime.\nUnable to calculate inverse.")
+
         
 # Task 3
 def eulers_totient_function(n):
@@ -55,29 +53,34 @@ def eulers_totient_function(n):
     # and add a 1 to our count. 
     count = 0
     for i in range(1, n):
-        if gcd(i, n) == True:
+        if gcd(i, n) == 1:
             count += 1
     return count
 
 # Task 4
 def calculate_modular_inverse(e, n):
-    # This function calculates the modular inverse by getting 
-    # the value e and the modulus.
     phi_n = eulers_totient_function(n)
-    isvalid_e = is_relatively_prime(e, phi_n)
-    if(isvalid_e):
-        #TODO: correct the logic
-        e_inverse = 1 / e
-        d = 0
-        print(f"The modular inverse is: {d}")
-    else:
-        print(f"e: {e}, is not valid")
+    if not is_relatively_prime(e, phi_n):
+        print(f"e: {e} is not valid (no modular inverse exists).")
+        return None
 
-    message = 2350
-    encrypted_message = (message**e)%n
-    decrypted_message = (encrypted_message**d)%n
-    if(decrypted_message==message):
-        print("({d},{n}) is the private key of ({e},{n}) public key")
+    a, b = e, phi_n
+    x, x1 = 1, 0
+
+    while b != 0:
+        quotient = a // b
+        a, b = b, a - quotient * b
+        x, x1 = x1, x - quotient * x1
+
+    if a != 1:  
+        return None
+
+    d = x % phi_n  
+    print(f"The modular inverse (private key) is: {d}")
+
+    return d
+
+
 
 
 def print_menu():
@@ -112,7 +115,7 @@ def main():
         elif user_input == "4":
             e = int(input("Enter the e: "))
             n = int(input("N = p * q\nEnter N: "))
-            calculate_secret_key(e, n)
+            calculate_modular_inverse(e, n)
 
         #back to menu
         input("\nPress Enter to continue")
