@@ -23,6 +23,14 @@ def is_relatively_prime(a, b):
         return True
     return False
 
+# Ensures the user inputs a valid integer
+def get_valid_number(user_input):
+    while True:
+        try:
+            return int(input(user_input))
+        except ValueError:
+            print("Invalid input. Please enter a valid number.")
+
 # Task 1
 # Function that checks if given number is prime
 def is_prime(n):
@@ -56,7 +64,7 @@ def eulers_totient_function(n):
     # and add a 1 to our count. 
     count = 0
     for i in range(1, n):
-        if gcd(i, n) == 1:
+        if is_relatively_prime(i, n):
             count += 1
     return count
 
@@ -110,18 +118,18 @@ def main():
     user_input = input("Pick a number: ")
     while user_input != "5":
         if user_input == "1":
-            n = int(input("Enter a number to check if it's prime: "))
+            n = get_valid_number("Enter a number to check if it's prime: ")
             print(f"Prime: {is_prime(n)}")
         elif user_input == "2":
-            a = int(input("Enter a number as e: "))
-            b = int(input("Enter a number as N: "))
+            a = get_valid_number("Enter a number as e: ")
+            b = get_valid_number("Enter a number as N: ")
             extended_euclidean_algorithm(a, b)
         elif user_input == "3":
-            n = int(input("N = p * q\nEnter N: "))
+            n = get_valid_number("N = p * q\nEnter N: ")
             print(f"Number of coprimes to N: {eulers_totient_function(n)}")
         elif user_input == "4":
-            e = int(input("Enter the e: "))
-            n = int(input("N = p * q\nEnter N: "))
+            e = get_valid_number("Enter the e: ")
+            n = get_valid_number("N = p * q\nEnter N: ")
             calculate_modular_inverse(e, n)
 
         #back to menu
